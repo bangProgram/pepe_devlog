@@ -1,0 +1,10 @@
+# GitHub Pages (Jekyll) 설정
+# 공개 사이트에는 devlog/ 케이스 스터디만 노출한다.
+# threads/(Threads 게시 원본)·daily/(일일 개발일지)는 빌드에서 제외해
+# 페이지로 노출되지 않도록 분리한다. (.nojekyll 을 두면 exclude 가 무시되므로 두지 않음)
+exclude:
+  - threads
+  - daily
+  - ship
+  - README.md
+  - .idea
