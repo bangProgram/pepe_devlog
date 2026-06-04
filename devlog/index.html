@@ -23,6 +23,16 @@
         .card h3 { font-size: 19px; color: #2563EB; margin-bottom: 6px; }
         .card p { font-size: 14px; color: #555; }
         .card .date { display: block; margin-top: 10px; font-size: 12px; color: #999; }
+        .badges {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;
+            margin: 0 auto 44px; max-width: 560px;
+        }
+        .badge { text-align: center; width: 76px; }
+        .badge img {
+            width: 64px; height: 64px; border-radius: 16px; display: block; margin: 0 auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+        .badge span { display: block; margin-top: 8px; font-size: 12px; color: #666; }
         .footer { text-align: center; margin-top: 40px; font-size: 13px; color: #999; }
     </style>
 </head>
@@ -31,6 +41,14 @@
         <div class="hero">
             <h1>개발 회고</h1>
             <p>만든 것들과 그 과정의 기록</p>
+        </div>
+        <div class="badges">
+        <!-- BADGE_LIST_START -->
+          <figure class="badge">
+            <img src="./assets/icons/hangong-icon.png" alt="한손공부 아이콘">
+            <span>한손공부</span>
+          </figure>
+        <!-- BADGE_LIST_END -->
         </div>
         <!-- POST_LIST_START -->
         <a class="card" href="./hangong.html">
