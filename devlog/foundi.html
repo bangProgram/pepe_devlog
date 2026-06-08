@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파운디(Found-i) 개발 회고 — bangProgram</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+            line-height: 1.8; color: #333; background-color: #f8f9fa;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .header {
+            text-align: center; margin-bottom: 24px; padding: 36px 30px;
+            background: #2563EB; color: white; border-radius: 12px;
+        }
+        .header h1 { font-size: 26px; margin-bottom: 8px; }
+        .header p { font-size: 15px; opacity: 0.92; }
+        .meta { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+        .meta span { background: rgba(255,255,255,0.18); padding: 4px 12px; border-radius: 999px; font-size: 13px; }
+        .back { display: inline-block; margin-bottom: 16px; color: #2563EB; text-decoration: none; font-size: 14px; }
+        .content { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        h2 { font-size: 19px; color: #2563EB; margin-top: 32px; margin-bottom: 12px; }
+        h2:first-child { margin-top: 0; }
+        p, li { font-size: 15px; }
+        .content p + p { margin-top: 14px; }
+        ul { padding-left: 20px; margin: 8px 0; }
+        .stack { display: flex; flex-wrap: wrap; gap: 8px; }
+        .stack span { background: #eef2ff; color: #2563EB; padding: 4px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+        .links a { display: inline-block; margin-right: 12px; color: #2563EB; font-weight: 600; text-decoration: none; }
+        .note { background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-top: 14px; }
+        .footer { text-align: center; margin-top: 24px; font-size: 13px; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a class="back" href="./index.html">← 목록으로</a>
+        <div class="header">
+            <h1>파운디 (Found-i)</h1>
+            <p>우리 동네에서 다시 발견하다 — 동네 분실물 연결 서비스</p>
+            <div class="meta">
+                <span>2026.01 ~ 2026.05 (약 4개월)</span>
+                <span>커밋 46</span>
+                <span>1인 개발 (기획·개발·출시)</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>🎯 왜 만들었나</h2>
+            <p>저는 동네에서 누가 흘린 물건을 주웠을 때, 이걸 어디다 알려야 주인을 찾아줄 수 있는지가 늘 막막했습니다. 경찰서 유실물 시스템은 문턱이 높고, 단지 커뮤니티나 동네 카페는 글이 금방 묻혀버립니다.</p>
+            <p>반대로 뭔가를 잃어버린 사람도 마찬가지였습니다. 어디를 뒤져야 할지 몰라서 그냥 포기하는 경우가 많았습니다.</p>
+            <p>그래서 "발견한 사람이 30초 안에 등록하고, 잃어버린 사람이 우리 동네 단위로 쉽게 찾는다" 정도를 목표로 잡고 만들기 시작했습니다. 처음엔 제가 사는 아파트 단지 안에서라도 쓸 수 있으면 좋겠다는 생각이었는데, 만들다 보니 동네(행정동) 단위로 넓히게 됐습니다.</p>
+
+            <h2>💡 솔루션 · 핵심 기능</h2>
+            <p>기능은 욕심내지 않고, "줍는 사람도 잃은 사람도 부담 없이"를 기준으로 단순하게 가져가려고 했습니다.</p>
+            <ul>
+                <li><strong>30초 빠른 등록</strong> — 사진 한 장과 보관 위치 정도만 입력하면 끝나는 습득물 등록 흐름. 가입 절차 없이 바로 쓸 수 있게 했습니다.</li>
+                <li><strong>습득(found) · 분실(lost) 게시</strong> — 주운 물건과 잃어버린 물건을 같은 동네 피드에서 매칭되게 했습니다.</li>
+                <li><strong>동네 단위 조회 + 단지 태그</strong> — 행정동을 기본 단위로 하되, 내 아파트 단지를 태그처럼 붙여 가까운 글부터 보이게 했습니다.</li>
+                <li><strong>외부 공공 데이터 통합 검색</strong> — 경찰청 Lost112와 포털 분실/습득 데이터를 함께 검색해, 앱에 글이 없어도 빈손으로 돌아가지 않게 했습니다.</li>
+                <li><strong>댓글 · 푸시 알림</strong> — 내 글에 연락이 오거나 동네에 새 글이 올라오면 알림을 받습니다.</li>
+                <li><strong>가입 없이 즉시 사용</strong> — 익명(디바이스 기반) 인증으로 시작하고, 원하면 카카오·Apple 계정을 선택적으로 연결합니다.</li>
+            </ul>
+
+            <h2>🛠 기술 스택</h2>
+            <div class="stack">
+                <span>Flutter</span><span>Riverpod</span><span>Supabase (PostgREST · Auth · Storage)</span>
+                <span>PostgreSQL · PostGIS</span><span>Edge Functions (Deno)</span><span>pg_cron · pg_net</span>
+                <span>Firebase FCM</span><span>GoRouter</span><span>카카오 · Apple 로그인</span>
+            </div>
+
+            <h2>🏗 아키텍처 · 주요 결정</h2>
+            <p>구조는 Flutter 쪽을 core / data / presentation 3계층으로 단순하게 나눴습니다. 화면은 Riverpod으로 상태를 구독하고, 데이터는 Repository를 거쳐 Supabase를 직접 부르는 식입니다. 백엔드를 따로 세우지 않고 Supabase 하나로 DB·인증·스토리지·서버 함수까지 묶은 게 1인 개발에는 가장 현실적이었습니다.</p>
+            <p>가장 고민이 많았던 건 검색이었습니다. 우리 앱에 쌓인 글만 보여주면 초기에는 피드가 너무 비어 보였습니다. 그래서 <strong>우리 DB의 글(Layer A)과 외부 공공 데이터(Layer B)를 함께 검색하는 2-Layer 하이브리드</strong>로 갔습니다.</p>
+            <p>외부 데이터는 실시간으로 매번 부르면 느리고 한도도 걱정돼서, <strong>pg_cron으로 30분마다 폴링해 캐시 테이블에 적재</strong>하고 앱은 그 캐시를 조회하게 했습니다. 인증은 가입 문턱을 없애려고 익명 인증을 기본으로 두고, 소셜 로그인은 어디까지나 선택지로만 붙였습니다.</p>
+
+            <h2>🧩 막혔던 점과 해결</h2>
+            <p>앱 개발도, 바이브코딩으로 앱을 만드는 것도 처음이라 막힌 곳이 많았습니다. 특히 iOS 심사에서 크게 배웠습니다.</p>
+            <ul>
+                <li><strong>iOS 심사 — 소셜 로그인이 Safari로 튐(Guideline 4)</strong> — OAuth가 외부 브라우저로 빠지면 리젝이었습니다. <code>flutter_web_auth_2</code>로 바꿔 iOS는 <code>ASWebAuthenticationSession</code> 인앱 모달로 로그인하도록 정리했습니다.</li>
+                <li><strong>iOS 심사 — 익명 게시 앱의 UGC 요건(Guideline 1.2)</strong> — 신고·차단·금칙어 필터·EULA 동의 게이트·신고 누적 자동숨김을 모두 갖추고, 연령 등급까지 다시 설정한 뒤에야 통과했습니다.</li>
+                <li><strong>iOS 심사 — 회원탈퇴와 권한(Guideline 5.1.1)</strong> — 회원탈퇴를 넣고, Apple 연동 계정은 서버에서 refresh token을 revoke하도록 했습니다. 실제로 호출하지 않는 위치 권한 설명도 걷어냈습니다.</li>
+                <li><strong>외부 폴링이 자꾸 실패</strong> — cron에서 Edge Function을 부르는데 <code>pg_net.http_post</code>의 기본 타임아웃이 5초라 외부 API가 느리면 끊겼습니다. <code>timeout_milliseconds</code>를 명시(60초)하고 한 번에 가져오는 건수를 조정해 안정화했습니다.</li>
+                <li><strong>빈 피드 문제</strong> — 출시 초기 데이터가 없는 문제를, 위의 외부 공공 데이터 통합 검색으로 메웠습니다.</li>
+            </ul>
+
+            <h2>📈 결과 · 배운 점</h2>
+            <p>약 4개월 동안 46번 커밋해서 <strong>App Store와 Play Store에 모두 정식 출시</strong>했고, v1.0.23까지 업데이트했습니다.</p>
+            <p>가장 크게 배운 건 한손공부 때와 비슷했습니다. 출시는 기능을 다 만드는 것보다 <strong>심사·정책·권한 같은 요건을 하나씩 맞추는 싸움</strong>에 가깝다는 것이었습니다. 특히 익명으로 글을 쓸 수 있는 앱은 모더레이션을 제대로 갖추지 않으면 통과가 어렵다는 걸 직접 부딪히며 배웠습니다.</p>
+            <p>아직 부족한 점도 많고, 무엇보다 동네 분실물 서비스는 그 동네에 사람이 모여야 가치가 생기는데 그 부분이 가장 어려운 숙제로 남았습니다.</p>
+            <p class="note">현재는 Supabase 무료 플랜의 사용량 한도 이슈로 서비스를 잠시 멈춰둔 상태입니다. 운영 방식을 정리한 뒤 다시 열 계획입니다.</p>
+
+            <h2>🔗 링크</h2>
+            <p class="links">
+                <a href="https://apps.apple.com/kr/app/파운디-우리-동네-이야기/id6763223717" target="_blank">App Store</a>
+                <a href="https://play.google.com/store/apps/details?id=com.foundi.foundi_app" target="_blank">Google Play</a>
+                <a href="https://bangprogram.github.io/docs/foundi-privacy-policy.html" target="_blank">개인정보 처리방침</a>
+            </p>
+        </div>
+        <div class="footer">
+            문의: pepe.dev222@gmail.com · 게시일 2026-06-08
+        </div>
+    </div>
+</body>
+</html>
