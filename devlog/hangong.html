@@ -1,103 +1,141 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>한손공부(HanGong) 개발 회고 — bangProgram</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
-            line-height: 1.8; color: #333; background-color: #f8f9fa;
-        }
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        .header {
-            text-align: center; margin-bottom: 24px; padding: 36px 30px;
-            background: #2563EB; color: white; border-radius: 12px;
-        }
-        .header h1 { font-size: 26px; margin-bottom: 8px; }
-        .header p { font-size: 15px; opacity: 0.92; }
-        .meta { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
-        .meta span { background: rgba(255,255,255,0.18); padding: 4px 12px; border-radius: 999px; font-size: 13px; }
-        .back { display: inline-block; margin-bottom: 16px; color: #2563EB; text-decoration: none; font-size: 14px; }
-        .content { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        h2 { font-size: 19px; color: #2563EB; margin-top: 32px; margin-bottom: 12px; }
-        h2:first-child { margin-top: 0; }
-        p, li { font-size: 15px; }
-        .content p + p { margin-top: 14px; }
-        ul { padding-left: 20px; margin: 8px 0; }
-        .stack { display: flex; flex-wrap: wrap; gap: 8px; }
-        .stack span { background: #eef2ff; color: #2563EB; padding: 4px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; }
-        .links a { display: inline-block; margin-right: 12px; color: #2563EB; font-weight: 600; text-decoration: none; }
-        .footer { text-align: center; margin-top: 24px; font-size: 13px; color: #888; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한손공부(HanGong) 개발 회고 — bangProgram</title>
+<meta name="description" content="한 손으로 자투리 시간에 외우는 플래시카드 학습 앱">
+<meta property="og:title" content="한손공부(HanGong) 개발 회고">
+<meta property="og:description" content="한 손으로 자투리 시간에 외우는 플래시카드 학습 앱">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#15133a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/alley.css">
 </head>
-<body>
-    <div class="container">
-        <a class="back" href="./index.html">← 목록으로</a>
-        <div class="header">
-            <h1>한손공부 (HanGong)</h1>
-            <p>한 손으로 자투리 시간에 외우는 플래시카드 학습 앱</p>
-            <div class="meta">
-                <span>2026.03 ~ 2026.05 (약 3개월)</span>
-                <span>커밋 39</span>
-                <span>1인 개발 (기획·개발·출시)</span>
-            </div>
-        </div>
-        <div class="content">
-            <h2>🎯 왜 만들었나</h2>
-            <p>저는 출퇴근길이나 잠깐 비는 시간에 단어를 외우고 싶었는데, 막상 쓰려니 손에 맞는 앱이 잘 없었습니다.</p>
-            <p>로그인부터 해야 하거나 화면이 무거워서 <strong>한 손으로 쓰기 불편한</strong> 경우가 많았고, 한국 사람이 많이 찾는 한자·사자성어 콘텐츠는 생각보다 빈약했습니다.</p>
-            <p>그래서 "지하철에서 엄지 하나로, 가입 없이 바로 외운다" 정도를 목표로 잡고 만들기 시작했습니다. 처음엔 그냥 제가 쓰려고 만든 앱이었는데, 비슷한 불편을 느끼는 분도 있을 것 같았습니다.</p>
+<body data-app="hangong">
 
-            <h2>💡 핵심 기능</h2>
-            <p>기능은 욕심내지 않고 최대한 단순하게 가져가려고 했습니다.</p>
-            <ul>
-                <li><strong>한 손 스와이프 학습</strong> — 카드를 뒤집고 좌(몰라요)/우(알아요)로 스와이프. 엄지 하나로 끝나는 인터랙션.</li>
-                <li><strong>SRS 간격 반복</strong> — SM-2 변형 알고리즘을 몰라요/알아요 이진 응답으로 단순화. 2연속 정답 시 마스터 처리.</li>
-                <li><strong>게이미피케이션</strong> — XP·10단계 성장(씨앗→대숲)·스트릭·16개 뱃지로 매일 돌아올 이유를 설계.</li>
-                <li><strong>영어 + 한자 트랙</strong> — 시험/일상/비즈니스/트렌드 영어에 더해 사자성어·고사성어·천자문·고전명구·한자까지 <strong>51개 덱</strong>으로 확장.</li>
-                <li><strong>가입 없이 즉시 학습</strong> — 비로그인은 localStorage 전용, 로그인하면 Supabase로 기기 간 동기화.</li>
-                <li><strong>오늘의 트렌드 단어</strong> — RSS 뉴스에서 시의성 있는 단어를 수집하는 파이프라인.</li>
-            </ul>
+<header class="top">
+  <a class="brand" href="index.html">bangProgram</a>
+  <nav aria-label="페이지 이동">
+    <a href="index.html">골목으로 돌아가기</a>
+    <a href="#contact">문의</a>
+  </nav>
+</header>
 
-            <h2>🛠 기술 스택</h2>
-            <div class="stack">
-                <span>Next.js 14 (App Router · SSG)</span><span>TypeScript</span><span>Tailwind CSS</span>
-                <span>Zustand</span><span>Framer Motion</span><span>Supabase</span>
-                <span>Capacitor</span><span>AdMob</span>
-            </div>
+<div class="banner">
+  <svg id="banner" role="group" aria-label="골목에 있는 한손공부 가게 그림. 옆 가게를 누르면 다른 앱의 회고로 이동해요."></svg>
+</div>
 
-            <h2>🏗 아키텍처 · 주요 결정</h2>
-            <p>앱을 Capacitor로 감싸서 낼 생각이었기 때문에, WebView 안에서 탈 없이 도는 게 중요했습니다. 그래서 Next.js를 SSR 없이 <strong>SSG 전용(<code>output: 'export'</code>)</strong>으로 고정했습니다. 처음엔 API 라우트를 쓸까 고민했지만, 결국 모든 화면을 정적으로 만들고 상태는 클라이언트에서 처리하는 쪽이 단순했습니다.</p>
-            <p>저장소는 조금 고민이 됐습니다. 가입을 강제하고 싶지 않아서 비로그인은 localStorage만 쓰고, 로그인하면 Supabase로 동기화하도록 했습니다. 대신 기기를 바꿔도 기록이 남도록 복원은 <strong>DB를 우선</strong>으로 뒀습니다.</p>
-            <p>웹과 네이티브에서 다르게 동작하는 부분(햅틱·공유·광고)은 플랫폼 브릿지로 한 번 감싸서, 부르는 쪽은 같은 코드로 쓰게 했습니다.</p>
-
-            <h2>🧩 막혔던 점과 해결</h2>
-            <p>처음 해보는 앱 개발이라 막힌 곳이 많았습니다. 그중 기억에 남는 것들입니다.</p>
-            <ul>
-                <li><strong>SSG 제약 안에서 동적 학습 앱</strong> — SSR을 못 쓰니 모든 상태를 클라이언트에서 다뤄야 했습니다. <code>trailingSlash</code> 라우팅 규칙과 SSR 가드(<code>typeof window</code> 체크 + 하이드레이션 분기)를 훅마다 일관되게 적용해 깜빡임·불일치를 잡았습니다.</li>
-                <li><strong>이중 저장소 동기화 충돌</strong> — 로컬과 DB가 동시에 있을 때 무엇을 진실로 볼지가 문제였습니다. DB 우선 복원 + 로컬 신규 데이터만 병합하는 규칙으로 정리했습니다.</li>
-                <li><strong>iOS App Store 심사 대비</strong> — Privacy Manifest·ATT·AdMob 연동, 회원탈퇴 시 Apple refresh token 서버사이드 revoke까지 출시 요건을 맞췄습니다.</li>
-                <li><strong>한자 트랙 확장</strong> — 영어 카드와 구조가 다른 한자 카드(유래·출전·글자별 음뜻)를 카드 타입 분기 렌더링과 마이그레이션으로 흡수했습니다.</li>
-                <li><strong>릴리스 반복 자동화</strong> — versionCode/versionName 자동 증가와 AAB 빌드를 스크립트로 묶어 출시 사이클을 줄였습니다.</li>
-            </ul>
-
-            <h2>📈 결과 · 배운 점</h2>
-            <p>약 3개월 동안 39번 커밋해서 <strong>Play Store와 App Store에 모두 정식 출시</strong>했습니다. 영어 단어로 시작했지만 한자 트랙까지 붙여서 지금은 <strong>51개 덱</strong>이 됐습니다.</p>
-            <p>만들면서 느낀 건 "정적 사이트 + 네이티브로 감싸기"라는 제약이 오히려 구조를 단순하게 유지하는 데 도움이 됐다는 점입니다. 가입을 선택으로 두고 오프라인을 우선한 것도 첫 학습까지의 문턱을 낮춰줬다고 생각합니다.</p>
-            <p>아직 부족한 부분도 많지만, 개인적으로 가장 크게 배운 건 <strong>출시는 기능을 다 만드는 것보다 심사·정책·서명·자동화 같은 요건을 맞추는 싸움에 가깝다</strong>는 것이었습니다.</p>
-
-            <h2>🔗 링크</h2>
-            <p class="links">
-                <a href="https://play.google.com/store/apps/details?id=com.hangong.app" target="_blank">Google Play</a>
-                <a href="https://apps.apple.com/kr/app/한손공부/id6765840286" target="_blank">App Store</a>
-                <a href="https://bangprogram.github.io/docs/hangong-privacy-policy.html" target="_blank">개인정보 처리방침</a>
-            </p>
-        </div>
-        <div class="footer">
-            문의: pepe.dev222@gmail.com · 게시일 2026-06-02
-        </div>
+<section class="shopinfo">
+  <div class="head">
+    <img src="assets/icons/hangong-icon.png" alt="한손공부 앱 아이콘" width="88" height="88">
+    <div>
+      <h1>한손공부<small>HanGong</small></h1>
+      <p class="tagline">한 손으로 자투리 시간에 외우는 플래시카드 학습 앱</p>
     </div>
+  </div>
+  <dl class="facts">
+    <div><dt>개발 기간</dt><dd>2026.03 ~ 2026.05 (약 3개월)</dd></div>
+    <div><dt>커밋</dt><dd>39회</dd></div>
+    <div><dt>역할</dt><dd>1인 개발 (기획·개발·출시)</dd></div>
+  </dl>
+  <div class="actions">
+      <a class="btn fill" href="https://play.google.com/store/apps/details?id=com.hangong.app" target="_blank" rel="noopener">Google Play에서 받기</a>
+      <a class="btn" href="https://apps.apple.com/kr/app/한손공부/id6765840286" target="_blank" rel="noopener">App Store에서 받기</a>
+      <a class="textlink" href="https://bangprogram.github.io/docs/hangong-privacy-policy.html" target="_blank" rel="noopener">개인정보 처리방침</a>
+  </div>
+</section>
+
+<div class="page">
+  <nav class="toc" aria-label="목차">
+    <p>목차</p>
+    <ol id="toc-list"></ol>
+  </nav>
+  <article class="post">
+    <section id="why">
+      <h2>왜 만들었나</h2>
+        <p>저는 출퇴근길이나 잠깐 비는 시간에 단어를 외우고 싶었는데, 막상 쓰려니 손에 맞는 앱이 잘 없었습니다.</p>
+        <p>로그인부터 해야 하거나 화면이 무거워서 <strong>한 손으로 쓰기 불편한</strong> 경우가 많았고, 한국 사람이 많이 찾는 한자·사자성어 콘텐츠는 생각보다 빈약했습니다.</p>
+        <p>그래서 "지하철에서 엄지 하나로, 가입 없이 바로 외운다" 정도를 목표로 잡고 만들기 시작했습니다. 처음엔 그냥 제가 쓰려고 만든 앱이었는데, 비슷한 불편을 느끼는 분도 있을 것 같았습니다.</p>
+    </section>
+    <section id="features">
+      <h2>핵심 기능</h2>
+        <p>기능은 욕심내지 않고 최대한 단순하게 가져가려고 했습니다.</p>
+        <ul class="items">
+        <li><strong>한 손 스와이프 학습</strong>카드를 뒤집고 좌(몰라요)/우(알아요)로 스와이프. 엄지 하나로 끝나는 인터랙션.</li>
+        <li><strong>SRS 간격 반복</strong>SM-2 변형 알고리즘을 몰라요/알아요 이진 응답으로 단순화. 2연속 정답 시 마스터 처리.</li>
+        <li><strong>게이미피케이션</strong>XP·10단계 성장(씨앗→대숲)·스트릭·16개 뱃지로 매일 돌아올 이유를 설계.</li>
+        <li><strong>영어 + 한자 트랙</strong>시험/일상/비즈니스/트렌드 영어에 더해 사자성어·고사성어·천자문·고전명구·한자까지 <strong>51개 덱</strong>으로 확장.</li>
+        <li><strong>가입 없이 즉시 학습</strong>비로그인은 localStorage 전용, 로그인하면 Supabase로 기기 간 동기화.</li>
+        <li><strong>오늘의 트렌드 단어</strong>RSS 뉴스에서 시의성 있는 단어를 수집하는 파이프라인.</li>
+        </ul>
+    </section>
+    <section id="stack">
+      <h2>기술 스택</h2>
+        <ul class="tags">
+        <li>Next.js 14 (App Router · SSG)</li>
+        <li>TypeScript</li>
+        <li>Tailwind CSS</li>
+        <li>Zustand</li>
+        <li>Framer Motion</li>
+        <li>Supabase</li>
+        <li>Capacitor</li>
+        <li>AdMob</li>
+        </ul>
+    </section>
+    <section id="architecture">
+      <h2>아키텍처 · 주요 결정</h2>
+        <p>앱을 Capacitor로 감싸서 낼 생각이었기 때문에, WebView 안에서 탈 없이 도는 게 중요했습니다. 그래서 Next.js를 SSR 없이 <strong>SSG 전용(<code>output: 'export'</code>)</strong>으로 고정했습니다. 처음엔 API 라우트를 쓸까 고민했지만, 결국 모든 화면을 정적으로 만들고 상태는 클라이언트에서 처리하는 쪽이 단순했습니다.</p>
+        <p>저장소는 조금 고민이 됐습니다. 가입을 강제하고 싶지 않아서 비로그인은 localStorage만 쓰고, 로그인하면 Supabase로 동기화하도록 했습니다. 대신 기기를 바꿔도 기록이 남도록 복원은 <strong>DB를 우선</strong>으로 뒀습니다.</p>
+        <p>웹과 네이티브에서 다르게 동작하는 부분(햅틱·공유·광고)은 플랫폼 브릿지로 한 번 감싸서, 부르는 쪽은 같은 코드로 쓰게 했습니다.</p>
+    </section>
+    <section id="troubles">
+      <h2>막혔던 점과 해결</h2>
+        <p>처음 해보는 앱 개발이라 막힌 곳이 많았습니다. 그중 기억에 남는 것들입니다.</p>
+        <ul class="items">
+        <li><strong>SSG 제약 안에서 동적 학습 앱</strong>SSR을 못 쓰니 모든 상태를 클라이언트에서 다뤄야 했습니다. <code>trailingSlash</code> 라우팅 규칙과 SSR 가드(<code>typeof window</code> 체크 + 하이드레이션 분기)를 훅마다 일관되게 적용해 깜빡임·불일치를 잡았습니다.</li>
+        <li><strong>이중 저장소 동기화 충돌</strong>로컬과 DB가 동시에 있을 때 무엇을 진실로 볼지가 문제였습니다. DB 우선 복원 + 로컬 신규 데이터만 병합하는 규칙으로 정리했습니다.</li>
+        <li><strong>iOS App Store 심사 대비</strong>Privacy Manifest·ATT·AdMob 연동, 회원탈퇴 시 Apple refresh token 서버사이드 revoke까지 출시 요건을 맞췄습니다.</li>
+        <li><strong>한자 트랙 확장</strong>영어 카드와 구조가 다른 한자 카드(유래·출전·글자별 음뜻)를 카드 타입 분기 렌더링과 마이그레이션으로 흡수했습니다.</li>
+        <li><strong>릴리스 반복 자동화</strong>versionCode/versionName 자동 증가와 AAB 빌드를 스크립트로 묶어 출시 사이클을 줄였습니다.</li>
+        </ul>
+    </section>
+    <section id="result">
+      <h2>결과 · 배운 점</h2>
+        <p>약 3개월 동안 39번 커밋해서 <strong>Play Store와 App Store에 모두 정식 출시</strong>했습니다. 영어 단어로 시작했지만 한자 트랙까지 붙여서 지금은 <strong>51개 덱</strong>이 됐습니다.</p>
+        <p>만들면서 느낀 건 "정적 사이트 + 네이티브로 감싸기"라는 제약이 오히려 구조를 단순하게 유지하는 데 도움이 됐다는 점입니다. 가입을 선택으로 두고 오프라인을 우선한 것도 첫 학습까지의 문턱을 낮춰줬다고 생각합니다.</p>
+        <p>아직 부족한 부분도 많지만, 개인적으로 가장 크게 배운 건 <strong>출시는 기능을 다 만드는 것보다 심사·정책·서명·자동화 같은 요건을 맞추는 싸움에 가깝다</strong>는 것이었습니다.</p>
+    </section>
+    <section id="links">
+      <h2>링크</h2>
+        <div class="actions">
+        <a class="btn fill" href="https://play.google.com/store/apps/details?id=com.hangong.app" target="_blank" rel="noopener">Google Play에서 받기</a>
+        <a class="btn" href="https://apps.apple.com/kr/app/한손공부/id6765840286" target="_blank" rel="noopener">App Store에서 받기</a>
+        <a class="textlink" href="https://bangprogram.github.io/docs/hangong-privacy-policy.html" target="_blank" rel="noopener">개인정보 처리방침</a>
+        </div>
+    </section>
+  </article>
+</div>
+
+<section class="neighbors">
+  <h2>골목의 다른 가게</h2>
+  <p class="lede">같은 골목에서 만든 다른 앱들이에요.</p>
+  <ul class="shoplist" id="neighbor-list"></ul>
+  <a class="back-alley" href="index.html">골목 전체 보기</a>
+</section>
+
+<footer id="contact">
+  <h2>문의</h2>
+  <p>앱을 쓰다 불편한 점이나 제안이 있으면 메일로 보내 주세요.</p>
+  <p><a href="mailto:pepe.dev222@gmail.com">pepe.dev222@gmail.com</a></p>
+  <p>게시일 2026.06.02</p>
+</footer>
+
+<script src="assets/js/apps.js"></script>
+<script src="assets/js/alley.js"></script>
+<script src="assets/js/post.js"></script>
 </body>
 </html>
