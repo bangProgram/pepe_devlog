@@ -3,3 +3,24 @@
 
 # 일일 개발일지 — 개인 로컬 아카이브(공개 리포에 올리지 않음)
 daily/
+
+# 민감 파일 (환경변수·키·인증서)
+*.env
+*.env.*
+**/supabase_constants.dart
+**/google-services.json
+**/GoogleService-Info.plist
+*.jks
+*.keystore
+key.properties
+**/credentials.json
+**/service-account*.json
+*.pem
+*.p12
+*.key
+
+# IDE / OS
+.vscode/
+.DS_Store
+Thumbs.db
+*.stackdump
