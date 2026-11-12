@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>토리츄(toReachu) 개발 회고 — bangProgram</title>
+<meta name="description" content="모르는 누군가에게 종이배·유리병·소원을 띄워 보내는, 웹에서 열리는 수채화 바다">
+<meta property="og:title" content="토리츄(toReachu) 개발 회고">
+<meta property="og:description" content="모르는 누군가에게 종이배·유리병·소원을 띄워 보내는, 웹에서 열리는 수채화 바다">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#15133a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/alley.css">
+</head>
+<body data-app="toreachu">
+
+<header class="top">
+  <a class="brand" href="index.html">bangProgram</a>
+  <nav aria-label="페이지 이동">
+    <a href="index.html">골목으로 돌아가기</a>
+    <a href="#contact">문의</a>
+  </nav>
+</header>
+
+<div class="banner">
+  <svg id="banner" role="group" aria-label="골목에 있는 토리츄 가게 그림. 옆 가게를 누르면 다른 앱의 회고로 이동해요."></svg>
+</div>
+
+<section class="shopinfo">
+  <div class="head">
+    <img src="assets/icons/toreachu-icon.png" alt="토리츄 아이콘" width="88" height="88">
+    <div>
+      <h1>토리츄<small>toReachu · 너에게 닿기를</small></h1>
+      <p class="tagline">모르는 누군가에게 종이배·유리병·소원을 띄워 보내는, 웹에서 열리는 수채화 바다</p>
+    </div>
+  </div>
+  <dl class="facts">
+    <div><dt>개발 기간</dt><dd>2026.11 ~ 진행 중</dd></div>
+    <div><dt>형태</dt><dd>모바일 웹 (설치 없이 링크로)</dd></div>
+    <div><dt>역할</dt><dd>1인 개발 (기획·개발·운영)</dd></div>
+  </dl>
+  <div class="actions">
+      <a class="btn fill" href="https://toreachu.vercel.app" target="_blank" rel="noopener">바다 열어 보기</a>
+      <a class="textlink" href="https://bangprogram.github.io/docs/toreachu-privacy-policy.html" target="_blank" rel="noopener">개인정보 처리방침</a>
+  </div>
+</section>
+
+<div class="page">
+  <nav class="toc" aria-label="목차">
+    <p>목차</p>
+    <ol id="toc-list"></ol>
+  </nav>
+  <article class="post">
+    <section id="why">
+      <h2>왜 만들었나</h2>
+        <p>지금까지 만든 앱들은 대부분 "이게 불편하니 줄여 보자"에서 출발했습니다. 이번엔 조금 달랐습니다. 불편을 푸는 도구가 아니라, 잠깐 들어와 쉬었다 가는 장소를 만들어 보고 싶었습니다.</p>
+        <p>떠올린 건 바닷가에 떠밀려 온 유리병 편지였습니다. 누가 썼는지도 모르는 한 줄이 우연히 나한테 닿는 느낌, 그리고 내가 띄운 마음도 어딘가의 누군가에게 닿을 거라는 기대 같은 것들입니다.</p>
+        <p>그래서 이름을 '너에게 닿기를'로 정했고, 줄여서 토리츄(to reach you)라고 부릅니다. 좋아요나 팔로워 없이, 그냥 마음만 오가는 바다를 목표로 잡았습니다.</p>
+    </section>
+    <section id="features">
+      <h2>솔루션 · 핵심 기능</h2>
+        <p>화면은 바다 하나뿐입니다. 버튼을 늘리기보다, 바다에 떠 있는 것들을 눌러 보게 만드는 쪽을 택했습니다.</p>
+        <ul class="items">
+        <li><strong>시간이 흐르는 수채화 바다</strong>실제 시각에 맞춰 해가 뜨고 지는 해변입니다. 파도 소리 녹음을 분석해 물가의 물결과 소리가 같은 박자로 움직이게 했고, 의자나 돗자리를 누르면 앉아서 바다를 바라볼 수 있습니다.</li>
+        <li><strong>종이배 — 행운의 편지</strong>답장은 없고, 받은 사람이 간직하거나 다시 바다로 보내거나 파기합니다. 보낸 사람에게는 "몇 명의 인연을 거쳤는지"만 돌아옵니다.</li>
+        <li><strong>유리병 — 응원 릴레이</strong>여러 사람이 차례로 응원 한 줄을 덧붙이고, 뒷사람은 앞사람의 응원을 봅니다. 여행이 끝나면 반드시 주인에게 돌아옵니다.</li>
+        <li><strong>소원 — 하늘에 거는 마음</strong>낮엔 연, 밤엔 연등으로 하늘에 머무는 소원입니다. 다른 사람의 소원을 하나씩 넘겨 읽을 수 있습니다.</li>
+        <li><strong>시즌 해변 — 수능 응원 해변</strong>기간 중에만 열리는 별도 공간입니다. 수능을 앞둔 누군가를 위해 물 위에 응원 등불을 켜고, 그 등불은 그 해변 안에서만 보입니다.</li>
+        <li><strong>익명이지만 안전하게</strong>이름만 정하면 시작할 수 있는 익명 구조라, 신고·그만 받기·금칙어·연락처 차단과 회원 탈퇴(기록 지우기)를 처음부터 같이 넣었습니다.</li>
+        </ul>
+    </section>
+    <section id="stack">
+      <h2>기술 스택</h2>
+        <ul class="tags">
+        <li>React 19</li>
+        <li>TypeScript</li>
+        <li>three.js · React Three Fiber</li>
+        <li>GLSL 셰이더</li>
+        <li>Web Audio API</li>
+        <li>Zustand</li>
+        <li>Supabase (Postgres RPC · 익명 Auth · Edge Functions · pg_cron)</li>
+        <li>Vite · Vitest · Playwright</li>
+        <li>Vercel</li>
+        </ul>
+    </section>
+    <section id="architecture">
+      <h2>아키텍처 · 주요 결정</h2>
+        <p>이번엔 Flutter가 아니라 웹으로 만들었습니다. 링크 하나로 바로 열려야 '바다에 잠깐 들른다'는 느낌이 살 것 같았고, 바다 화면은 셰이더로 직접 그리는 게 핵심이라 WebGL이 맞았습니다.</p>
+        <p>하늘·바다·모래는 모두 셰이더가 그리고, 수평선 색을 서로 공유해 이음매가 보이지 않게 했습니다. 마지막에 같은 수채화 마감을 거쳐 쨍한 3D 느낌 대신 그림처럼 보이게 맞췄습니다.</p>
+        <p>메시지는 데이터에 '방식'(종이배·유리병·소원)만 저장하고, 그게 어떤 모습으로 보일지는 받는 화면이 장소·시간·이벤트를 보고 정합니다. 같은 소원이 바다에선 연등, 수능 해변에선 응원 등불이 되는 식입니다.</p>
+        <p>서버는 Supabase 하나로 묶었습니다. 규칙(하루 한도, 배달, 귀환, 정리)은 모두 Postgres 함수와 크론에 두고, 브라우저에는 공개 키만 둡니다. 서버 없이도 돌아가는 '예시 바다'를 같은 규칙으로 먼저 만들어, 화면을 다 다듬은 뒤에 실제 DB를 붙였습니다.</p>
+    </section>
+    <section id="troubles">
+      <h2>막혔던 점과 해결</h2>
+        <p>백엔드만 하다 보니 이번엔 서버보다 "화면이 자연스러워 보이는 것"에서 훨씬 오래 붙잡혔습니다.</p>
+        <ul class="items">
+        <li><strong>파도 소리와 파도가 따로 놀았다</strong>소리는 녹음이고 파도는 수식이라, 철썩 소리와 물이 밀려오는 순간이 어긋났습니다. 녹음을 분석해 '파도 시간표'를 만들고, 소리·물결·포말·젖은 모래·떠밀려 오는 종이배가 전부 그 시간표 하나를 읽게 바꿨습니다.</li>
+        <li><strong>휴대폰에서 끊기고 꺼지는 장면</strong>PC에선 괜찮던 장면이 휴대폰에선 버벅이거나 그래픽 컨텍스트가 날아갔습니다. 실측 FPS로 해상도부터 낮추는 자동 품질 조절, 컨텍스트를 잃으면 다시 만들고 반복되면 단계를 낮추는 복구, 그래도 안 되면 정적 그림 바다로 넘어가는 길을 만들었습니다.</li>
+        <li><strong>'답장 없는 편지'를 데이터로 옮기기</strong>종이배는 돌아오지 않을 수도 있고, 유리병은 꼭 돌아와야 했습니다. 편지마다 여행 기간을 보낼 때 정해 두고, 돌아온 유리병이 정리 크론을 기다리느라 늦게 오는 문제 같은 것들을 메모리 Postgres로 전체 흐름을 돌려 보며 잡았습니다.</li>
+        <li><strong>시즌 이벤트를 어디에 둘까</strong>처음엔 기간이 되면 기본 바다가 바뀌게 하려 했는데, 그러면 평소 바다를 좋아하던 사람의 공간을 빼앗게 됩니다. 이벤트는 '들어가는 공간'으로 바꾸고, 그 안의 메시지는 그 공간에서만 오가도록 서버에 채널을 따로 뒀습니다.</li>
+        </ul>
+    </section>
+    <section id="result">
+      <h2>결과 · 배운 점</h2>
+        <p>11월 초에 시작해 실제 바다를 웹에 열었고, 첫 시즌 공간으로 수능 응원 해변을 열어 운영하고 있습니다. SNS에서 바로 들어올 수 있는 짧은 주소와 링크 공유, 익명 이용 기록도 함께 붙였습니다.</p>
+        <p>가장 크게 배운 건, 감성적인 앱일수록 "왜 이게 자연스러워 보이지 않는지"를 말로 풀어내는 데 시간이 가장 많이 든다는 점이었습니다. 생각한 걸 만드는 것보다 구체화하는 게 더 어려웠습니다.</p>
+        <p>아직은 사람이 많지 않은 바다라, 빈 물가를 등대에서 보낸 편지로 채우고 있습니다. 다음엔 크리스마스 해변과 비 내리는 정자 같은 새 공간을 하나씩 더해 볼 생각입니다.</p>
+    </section>
+    <section id="links">
+      <h2>링크</h2>
+        <div class="actions">
+        <a class="btn fill" href="https://toreachu.vercel.app" target="_blank" rel="noopener">바다 열어 보기</a>
+        <a class="textlink" href="https://bangprogram.github.io/docs/toreachu-privacy-policy.html" target="_blank" rel="noopener">개인정보 처리방침</a>
+        </div>
+    </section>
+  </article>
+</div>
+
+<section class="neighbors">
+  <h2>골목의 다른 가게</h2>
+  <p class="lede">같은 골목에서 만든 다른 앱들이에요.</p>
+  <ul class="shoplist" id="neighbor-list"></ul>
+  <a class="back-alley" href="index.html">골목 전체 보기</a>
+</section>
+
+<footer id="contact">
+  <h2>문의</h2>
+  <p>앱을 쓰다 불편한 점이나 제안이 있으면 메일로 보내 주세요.</p>
+  <p><a href="mailto:pepe.dev222@gmail.com">pepe.dev222@gmail.com</a></p>
+  <p>게시일 2026.11.13</p>
+</footer>
+
+<script src="assets/js/apps.js"></script>
+<script src="assets/js/alley.js"></script>
+<script src="assets/js/post.js"></script>
+</body>
+</html>

@@ -8,6 +8,12 @@
 window.APPS = [
   // APP_LIST_START
   {
+    id: 'toreachu', name: '토리츄', en: 'toReachu',
+    desc: '모르는 누군가에게 종이배·유리병·소원을 띄워 보내는 수채화 바다예요. 설치 없이 링크로 열려요.',
+    date: '2026-11-13', page: 'toreachu.html', icon: 'assets/icons/toreachu-icon.png',
+    color: '#8fd8e0', brick: '#3f4a6b'
+  },
+  {
     id: 'temily', name: '테밀리', en: 'Temily',
     desc: '테니스 클럽 운영을 앱 하나로 해결해요. 일정, 참석 투표, 대진표, 전적을 한곳에서 관리할 수 있어요.',
     date: '2026-06-20', page: 'temily.html', icon: 'assets/icons/temily-icon.png',
