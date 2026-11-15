@@ -15,7 +15,7 @@ window.APPS = [
   },
   {
     id: 'temily', name: '테밀리', en: 'Temily',
-    desc: '테니스 클럽 운영을 앱 하나로 해결해요. 일정, 참석 투표, 대진표, 전적을 한곳에서 관리할 수 있어요.',
+    desc: '테니스 클럽 운영을 앱 하나로 해결해요. 일정, 참석 투표, 대진표, 게시판, 회비까지 한곳에서 관리할 수 있어요.',
     date: '2026-06-20', page: 'temily.html', icon: 'assets/icons/temily-icon.png',
     color: '#cfe355', brick: '#6b3f4a'
   },
