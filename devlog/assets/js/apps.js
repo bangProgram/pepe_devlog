@@ -8,6 +8,12 @@
 window.APPS = [
   // APP_LIST_START
   {
+    id: 'jutopia-part1', name: '주토피아 Part 1', en: 'Jutopia',
+    desc: '재무제표로 종목을 고르고, 목표가를 세우고, 거래를 기록하는 국내 주식 투자 노트예요. 이 골목에서 가장 먼저 만들기 시작한 앱이에요.',
+    date: '2026-11-23', page: 'jutopia-part1.html', icon: 'assets/icons/jutopia-part1-icon.png',
+    color: '#ff7a8a', brick: '#35564f', paused: true
+  },
+  {
     id: 'toreachu', name: '토리츄', en: 'toReachu',
     desc: '모르는 누군가에게 종이배·유리병·소원을 띄워 보내는 수채화 바다예요. 설치 없이 링크로 열려요.',
     date: '2026-11-13', page: 'toreachu.html', icon: 'assets/icons/toreachu-icon.png',
